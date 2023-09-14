@@ -3,7 +3,7 @@ package com.codespacepro.quotescomposeapp.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codespacepro.quotescomposeapp.data.QuotesItem
+import com.codespacepro.quotescomposeapp.models.QuotesItem
 import com.codespacepro.quotescomposeapp.repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response

@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,7 +27,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.codespacepro.quotescomposeapp.data.QuotesItem
+import com.codespacepro.quotescomposeapp.models.QuotesItem
+import com.codespacepro.quotescomposeapp.network.NetworkUtils
 import com.codespacepro.quotescomposeapp.repository.Repository
 import com.codespacepro.quotescomposeapp.screen.QuotesList
 import com.codespacepro.quotescomposeapp.ui.theme.QuotesComposeAppTheme
@@ -34,7 +36,8 @@ import com.codespacepro.quotescomposeapp.viewmodels.MainViewModel
 import com.codespacepro.quotescomposeapp.viewmodels.MainViewModelFactory
 
 class MainActivity : ComponentActivity() {
-    lateinit var mainViewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
+
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
@@ -48,7 +51,6 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(true)
             }
 
-
             mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
             val quoteListState = remember { mutableStateOf(emptyList<QuotesItem>()) }
@@ -59,30 +61,37 @@ class MainActivity : ComponentActivity() {
                 tags = "technology | famous-quotes",
             )
 
-            mainViewModel.myResponse.observe(this, Observer { response ->
-                if (response.isSuccessful) {
-                    isLoading = false
-                    val quotes = response.body() ?: emptyList()
-                    quoteListState.value = quotes
-                    repeat(30) {
-                        Log.d("response", response.body()?.get(it)?.content.toString())
-                        Log.d("response", response.body()?.get(it)?.author.toString())
-                        Log.d("response", response.body()?.get(it)?.authorSlug.toString())
-                        Log.d("response", response.body()?.get(it)?._id.toString())
-                    }
+            if (NetworkUtils.isInternetAvailable(applicationContext)) {
+                mainViewModel.myResponse.observe(this, Observer { response ->
+                    if (response.isSuccessful) {
+                        isLoading = false
+                        val quotes = response.body() ?: emptyList()
+                        quoteListState.value = quotes
+                        repeat(30) {
+                            Log.d("response", response.body()?.get(it)?.content.toString())
+                            Log.d("response", response.body()?.get(it)?.author.toString())
+                            Log.d("response", response.body()?.get(it)?.authorSlug.toString())
+                            Log.d("response", response.body()?.get(it)?._id.toString())
+                        }
 
-                } else {
-                    isLoading = false
-                    Toast.makeText(context, response.code().toString(), Toast.LENGTH_SHORT).show()
-                }
-            })
+                    } else {
+                        isLoading = false
+                        Toast.makeText(context, response.code().toString(), Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                })
+            } else {
+                isLoading = true
+            }
+
             QuotesComposeAppTheme {
 
                 Scaffold(topBar = {
                     TopAppBar(
                         title = { Text(text = "Random Quotes") },
                         colors = TopAppBarDefaults.mediumTopAppBarColors(
-                            containerColor = Color.Blue, titleContentColor = Color.White
+                            containerColor = if (isSystemInDarkTheme()) Color.Black else MaterialTheme.colorScheme.primary,
+                            titleContentColor = Color.White
                         ),
                     )
                 }, content = {
@@ -100,9 +109,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-
 
 
 @Preview(showBackground = true)

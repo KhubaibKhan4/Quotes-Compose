@@ -1,5 +1,7 @@
 package com.codespacepro.quotescomposeapp.screen
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +19,10 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -27,25 +33,31 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.codespacepro.quotescomposeapp.R
-import com.codespacepro.quotescomposeapp.data.QuotesItem
+import com.codespacepro.quotescomposeapp.models.QuotesItem
+import com.codespacepro.quotescomposeapp.util.AlertDialogExample
 
 @Composable
 fun HomeScreen() {
 
 
-
 }
 
 @Composable
-fun QuoteCard(quote: QuotesItem) {
+fun QuoteCard(quote: QuotesItem, onClick: () -> Unit, visibility: Boolean) {
+    var visibility by remember {
+        mutableStateOf(false)
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .shadow(4.dp, RoundedCornerShape(16.dp)),
+            .shadow(4.dp, RoundedCornerShape(16.dp))
+            .clickable {
+                visibility = !visibility
+            },
 
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = if (isSystemInDarkTheme()) Color.Black else Color.White)
     ) {
         Column(
             modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.Center
@@ -53,7 +65,8 @@ fun QuoteCard(quote: QuotesItem) {
             // Quote content
             Text(
                 text = quote.content, style = TextStyle(
-                    fontSize = 18.sp, fontWeight = FontWeight.Bold, lineHeight = 28.sp
+                    fontSize = 18.sp, fontWeight = FontWeight.Bold, lineHeight = 28.sp,
+                    color = if (isSystemInDarkTheme()) Color.White else Color.Black
                 )
             )
 
@@ -74,18 +87,37 @@ fun QuoteCard(quote: QuotesItem) {
                 tint = Color.Gray,
                 modifier = Modifier.size(24.dp)
             )
+
+            if (visibility) {
+                AlertDialogExample(
+                    onDismissRequest = { visibility =false },
+                    onConfirmation = { visibility = false },
+                    dialogTitle = quote.author,
+                    dialogText = quote.content,
+                )
+            }
         }
     }
+
 }
+
 
 @Composable
 fun QuotesList(quotes: List<QuotesItem>, isLoading: Boolean) {
+    var content by remember {
+        mutableStateOf<String?>(null)
+    }
+    var author by remember {
+        mutableStateOf<String?>(null)
+    }
+
+
+    var visibility by remember {
+        mutableStateOf<Boolean>(false)
+    }
 
     LazyColumn {
-        items(quotes) { quote ->
-            QuoteCard(quote = quote)
-        }
-        // Display a loading indicator while isLoading is true
+
         if (isLoading) {
             item {
                 Box(
@@ -98,6 +130,15 @@ fun QuotesList(quotes: List<QuotesItem>, isLoading: Boolean) {
                     CircularProgressIndicator()
                 }
             }
+        } else {
+            items(quotes) { quote ->
+                QuoteCard(quote = quote, onClick = {
+                    content = quote.content
+                    author = quote.author
+                }, visibility = visibility)
+            }
+
         }
     }
+
 }

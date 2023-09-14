@@ -1,6 +1,8 @@
-package com.codespacepro.quotescomposeapp.data
+package com.codespacepro.quotescomposeapp.models
+
 
 data class QuotesItem(
+    val quoteId: Int,
     val _id: String,
     val author: String,
     val authorSlug: String,

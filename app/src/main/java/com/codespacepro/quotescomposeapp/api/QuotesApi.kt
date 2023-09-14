@@ -1,9 +1,10 @@
 package com.codespacepro.quotescomposeapp.api
 
-import com.codespacepro.quotescomposeapp.data.QuotesItem
+import com.codespacepro.quotescomposeapp.models.QuotesItem
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+
 
 interface QuotesApi {
 
@@ -15,4 +16,5 @@ interface QuotesApi {
         @Query("tags") tags: String,
 
         ): Response<List<QuotesItem>>
+
 }
