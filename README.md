@@ -11,3 +11,7 @@
 ## Alert-Dialog-Supported
 
 <img src="https://github.com/KhubaibKhan4/Quotes-Compose/blob/master/Screenshot_20230915_010453.png" height="50%" width="50%"/>
+
+## Staggered Layout Implemented
+
+<img src="https://github.com/KhubaibKhan4/Quotes-Compose/blob/master/Screenshot_20230917_050010.png" height="50%" width="50%"/>
