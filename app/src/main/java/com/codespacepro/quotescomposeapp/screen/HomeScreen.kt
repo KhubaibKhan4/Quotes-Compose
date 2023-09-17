@@ -1,5 +1,6 @@
 package com.codespacepro.quotescomposeapp.screen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -10,8 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -22,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,6 +50,10 @@ fun QuoteCard(quote: QuotesItem, onClick: () -> Unit, visibility: Boolean) {
     var visibility by remember {
         mutableStateOf(false)
     }
+
+    val scope = rememberCoroutineScope()
+    var showBottomSheet by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -90,8 +97,8 @@ fun QuoteCard(quote: QuotesItem, onClick: () -> Unit, visibility: Boolean) {
 
             if (visibility) {
                 AlertDialogExample(
-                    onDismissRequest = { visibility =false },
-                    onConfirmation = { visibility = false },
+                    onDismissRequest = { visibility = false },
+                    onConfirmation = { visibility },
                     dialogTitle = quote.author,
                     dialogText = quote.content,
                 )
@@ -102,6 +109,7 @@ fun QuoteCard(quote: QuotesItem, onClick: () -> Unit, visibility: Boolean) {
 }
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun QuotesList(quotes: List<QuotesItem>, isLoading: Boolean) {
     var content by remember {
@@ -116,7 +124,7 @@ fun QuotesList(quotes: List<QuotesItem>, isLoading: Boolean) {
         mutableStateOf<Boolean>(false)
     }
 
-    LazyColumn {
+    LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2)) {
 
         if (isLoading) {
             item {
@@ -131,12 +139,12 @@ fun QuotesList(quotes: List<QuotesItem>, isLoading: Boolean) {
                 }
             }
         } else {
-            items(quotes) { quote ->
-                QuoteCard(quote = quote, onClick = {
-                    content = quote.content
-                    author = quote.author
-                }, visibility = visibility)
-            }
+           items(quotes){quotes ->
+               QuoteCard(quote = quotes, onClick = {
+                   content = quotes.content
+                   author = quotes.author
+               }, visibility = visibility)
+           }
 
         }
     }

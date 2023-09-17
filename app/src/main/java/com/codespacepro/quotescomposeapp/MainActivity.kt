@@ -44,6 +44,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            var checked by remember { mutableStateOf(false) }
+
+
+
+
+
             val context = LocalContext.current
             val repository = Repository()
             val mainViewModelFactory = MainViewModelFactory(repository)
@@ -92,15 +98,16 @@ class MainActivity : ComponentActivity() {
                         colors = TopAppBarDefaults.mediumTopAppBarColors(
                             containerColor = if (isSystemInDarkTheme()) Color.Black else MaterialTheme.colorScheme.primary,
                             titleContentColor = Color.White
-                        ),
+                        ), scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
                     )
+
                 }, content = {
                     Surface(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(top = it.calculateTopPadding()),
-                        color = MaterialTheme.colorScheme.background
-                    ) {
+
+                        ) {
                         QuotesList(quoteListState.value, isLoading)
                     }
                 })
