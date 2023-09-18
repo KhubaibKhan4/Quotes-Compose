@@ -96,9 +96,11 @@ fun QuoteCard(quote: QuotesItem, onClick: () -> Unit, visibility: Boolean) {
             )
 
             if (visibility) {
+
+
                 AlertDialogExample(
                     onDismissRequest = { visibility = false },
-                    onConfirmation = { visibility },
+                    onConfirmation = { visibility = false },
                     dialogTitle = quote.author,
                     dialogText = quote.content,
                 )
@@ -125,7 +127,6 @@ fun QuotesList(quotes: List<QuotesItem>, isLoading: Boolean) {
     }
 
     LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2)) {
-
         if (isLoading) {
             item {
                 Box(
@@ -139,12 +140,12 @@ fun QuotesList(quotes: List<QuotesItem>, isLoading: Boolean) {
                 }
             }
         } else {
-           items(quotes){quotes ->
-               QuoteCard(quote = quotes, onClick = {
-                   content = quotes.content
-                   author = quotes.author
-               }, visibility = visibility)
-           }
+            items(quotes) { quotes ->
+                QuoteCard(quote = quotes, onClick = {
+                    content = quotes.content
+                    author = quotes.author
+                }, visibility = visibility)
+            }
 
         }
     }

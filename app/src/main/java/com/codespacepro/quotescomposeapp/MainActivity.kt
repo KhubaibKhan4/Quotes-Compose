@@ -47,9 +47,6 @@ class MainActivity : ComponentActivity() {
             var checked by remember { mutableStateOf(false) }
 
 
-
-
-
             val context = LocalContext.current
             val repository = Repository()
             val mainViewModelFactory = MainViewModelFactory(repository)
@@ -91,14 +88,14 @@ class MainActivity : ComponentActivity() {
             }
 
             QuotesComposeAppTheme {
-
                 Scaffold(topBar = {
                     TopAppBar(
                         title = { Text(text = "Random Quotes") },
                         colors = TopAppBarDefaults.mediumTopAppBarColors(
                             containerColor = if (isSystemInDarkTheme()) Color.Black else MaterialTheme.colorScheme.primary,
                             titleContentColor = Color.White
-                        ), scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+                        ),
+                        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
                     )
 
                 }, content = {
