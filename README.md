@@ -1,17 +1,35 @@
-# Quotes-Compose
+# Quote Compose
 
-## Main-Screen
+A sample Android app built with Jetpack Compose, showcasing features like Dependency Injection, MVVM architecture, Retrofit for network calls, Canvas for drawing, and more.
 
-<img src="https://github.com/KhubaibKhan4/Quotes-Compose/blob/master/Screenshot_20230909_190420.png" height="50%" width="50%"/>
+## Features
 
-## Dark-Mode-Supported
+- Display a list of quotes fetched from a remote API.
+- View the details of a selected quote.
+- Draw quotes using Canvas for a creative touch.
+- Dependency Injection using Dagger Hilt for cleaner code.
+- MVVM architecture for separation of concerns.
+- Retrofit for making network calls.
+- Jetpack Compose for modern UI development.
 
-<img src="https://github.com/KhubaibKhan4/Quotes-Compose/blob/master/Screenshot_20230915_010431.png" height="50%" width="50%"/>
+## Screenshots
 
-## Alert-Dialog-Supported
+![Quote List](/screenshots/quote_list.png)
+![Quote Detail](/screenshots/quote_detail.png)
+![Quote Canvas](/screenshots/quote_canvas.png)
 
-<img src="https://github.com/KhubaibKhan4/Quotes-Compose/blob/master/Screenshot_20230915_010453.png" height="50%" width="50%"/>
+## Dependencies
 
-## Staggered Layout Implemented
+- [Jetpack Compose](https://developer.android.com/jetpack/compose)
+- [Dagger Hilt](https://dagger.dev/hilt/)
+- [Retrofit](https://square.github.io/retrofit/)
+- [Picasso (Optional)](https://square.github.io/picasso/)
 
-<img src="https://github.com/KhubaibKhan4/Quotes-Compose/blob/master/Screenshot_20230917_050010.png" height="50%" width="50%"/>
+## Getting Started
+
+To run the app on your local machine, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/quote-app-jetpack-compose.git
