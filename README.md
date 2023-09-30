@@ -16,10 +16,10 @@ A sample Android app built with Jetpack Compose, showcasing features like Depend
 
 <img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180427.png" width="250" alt="Quote List">
 <img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180451.png" width="250" alt="Quote Detail">
-<img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180521.png" width="250" alt="Quote Canvas">
-<img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180530.png" width="250" alt="Quote Detail 2">
-<img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180545.png" width="250" alt="Quote Canvas 2">
-<img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180554.png" width="250" alt="Quote Detail 3">
+<img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180521.png" width="350" alt="Quote Canvas">
+<img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180530.png" width="350" alt="Quote Detail 2">
+<img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180545.png" width="350" alt="Quote Canvas 2">
+<img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180554.png" width="350" alt="Quote Detail 3">
 <img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180605.png" width="250" alt="Quote Canvas 3">
 <img src="https://github.com/KhubaibKhan4/Quotes-Compose/raw/master/screenshots/Screenshot_20230930_180614.png" width="250" alt="Quote Detail 4">
 
